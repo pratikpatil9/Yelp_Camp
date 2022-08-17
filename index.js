@@ -123,13 +123,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next) =>{
     res.locals.currentUser = req.user;
-    console.log(res.locals.currentUser);
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
@@ -153,7 +151,7 @@ app.use((err, req, res, next) => {
     console.log(err)
     res.render("error",{err});
 })
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, ()=>{
     console.log(`Server on port ${port}`);
 })
