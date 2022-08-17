@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production"){
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -16,9 +20,6 @@ const mongoSanitize = require("express-mongo-sanitize")
 const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
 
-if(process.env.NODE_ENV != "production"){
-    require("dotenv").config();
-}
 
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
@@ -128,6 +129,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next) =>{
     res.locals.currentUser = req.user;
+    console.log(res.locals.currentUser);
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
