@@ -151,7 +151,7 @@ app.use((err, req, res, next) => {
     console.log(err)
     res.render("error",{err});
 })
-
-app.listen(3000, ()=>{
-    console.log("Server on port 3000")
+const port = process.env.port || 3000;
+app.listen(port, ()=>{
+    console.log(`Server on port ${port}`);
 })
