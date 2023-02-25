@@ -1,9 +1,10 @@
+const inJson = require("./in.json");
 const mongoose = require("mongoose");
 const Campground = require("../Models/campground");
 const cities = require("./cities.js")
 const {descriptors,places} = require("./seedHelpers.js")
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/yelp-camp');
+  await mongoose.connect('mongodb+srv://lightning:lightning1@lightning.6tu7kyz.mongodb.net/?retryWrites=true&w=majority');
 }
 main()
 .then(res => {
@@ -14,13 +15,13 @@ main()
 const sample = array => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () =>{
   await Campground.deleteMany({});
-  for(let i = 0; i < 50; i++){
-    const random1000 = Math.floor(Math.random() * 1000);
+  for(let i = 0; i < 200; i++){
+    const random1000 = Math.floor(Math.random() * 406);
     const price = Math.floor(Math.random() * 20) + 10;
     new Campground({
-      author: "62eccba68ec6c300b3701e9d",
-      location: `${cities[random1000].city}, ${cities[random1000].state}`,
-      geometry : { type : "Point", coordinates : [cities[random1000].longitude, cities[random1000].latitude] },
+      author: "62fcc3966e19c86c237975f2",
+      location: `${inJson[random1000].city}, ${inJson[random1000].admin_name}`,
+      geometry : { type : "Point", coordinates : [inJson[random1000].lng, inJson[random1000].lat] },
       title:`${sample(descriptors)},${sample(places)}`,
       image:[
         {
